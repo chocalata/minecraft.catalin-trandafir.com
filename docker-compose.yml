@@ -1,0 +1,12 @@
+# THE DOCKERFILE:
+# FROM amazoncorretto:8
+# WORKDIR /minecraft_server
+# COPY ./server.jar server.jar
+# CMD ["java", "-Xmx1024M", "-Xms1024M", "-jar", "server.jar", "nogui"]
+services:
+  minecraft-server:
+    build: .
+    container_name: minecraft-server
+    ports:
+      - "25565:25565"
+    restart: unless-stopped
