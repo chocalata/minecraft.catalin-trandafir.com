@@ -1,0 +1,37 @@
+services:
+  minecraft-server:
+    image: "chocalata/mc.catalin-trandafir.com:mc-server_2025-10-28-v2"
+    container_name: minecraft-server
+    restart: unless-stopped
+    ports:
+      - "25565:25565"
+    volumes:
+      - minecraft_server:/minecraft_server
+    deploy:
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2048M
+        reservations:
+          cpus: "0.5"
+          memory: 512M
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mc_catalin-trandafir_com.entrypoints=web, websecure"
+      - "traefik.http.routers.mc_catalin-trandafir_com.rule=Host(`mc.catalin-trandafir.com`)"
+      - "traefik.http.routers.mc_catalin-trandafir_com.tls=true"
+      - "traefik.http.routers.mc_catalin-trandafir_com.tls.certresolver=production"
+      - "traefik.http.services.mc_catalin-trandafir_com.loadbalancer.server.port=25565"
+      - "traefik.docker.network=traefik"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+    networks:
+      - traefik
+volumes:
+  minecraft_server:
+networks:
+  traefik:
+    external: true
