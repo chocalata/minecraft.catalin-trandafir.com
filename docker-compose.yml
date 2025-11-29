@@ -8,8 +8,8 @@ services:
       - "25565:25565"
     restart: unless-stopped
     volumes:
-      - ./minecraft-container/server:/minecraft_server
-      - ./local-eula.txt:/minecraft_server/eula.txt:ro
+      - ./minecraft-container/src:/minecraft_server
+      - ./eula.txt:/minecraft_server/server/eula.txt:ro
     env_file:
       - .env
     deploy:

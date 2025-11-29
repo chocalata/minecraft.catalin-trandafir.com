@@ -4,10 +4,12 @@ RUN apk update && apk upgrade
 
 WORKDIR /minecraft_server
 
-COPY ./server/server.jar server.jar
+COPY ./src/server/server.jar server/server.jar
 
-COPY ./server/set-properties.sh set-properties.sh
-COPY ./server/start-server.sh start-server.sh
-COPY ./server/start.sh start.sh
+COPY ./src/set-properties.sh set-properties.sh
+COPY ./src/start-server.sh start-server.sh
+COPY ./src/start.sh start.sh
 
-ENTRYPOINT [ "./start.sh" ]
+WORKDIR /minecraft_server/server
+
+ENTRYPOINT [ "../start.sh" ]
