@@ -2,6 +2,7 @@
 
 app="mc-server"
 repository="chocalata/mc.catalin-trandafir.com"
+version_file="version" 
 
 # Configuration - easy to add more processes
 declare -A process_config=(
@@ -25,7 +26,7 @@ done
 read -r folder dockerfile <<< "${process_config[$process]}"
 
 # Version handling
-last_version=$(grep "$process" version 2>/dev/null || true)
+last_version=$(grep "$process" "$version_file" 2>/dev/null || true)
 today=$(date +"%Y-%m-%d")
 
 if [ -z "$last_version" ]; then
@@ -45,9 +46,9 @@ echo "Building ${app}_${new_version}..."
 
 # Update version file
 if [ -z "$last_version" ]; then
-    echo "$process $new_version" >> version
+    echo "$process $new_version" >> "$version_file"
 else
-    sed -i "s/$last_version/$process $new_version/g" version
+    sed -i "s/$last_version/$process $new_version/g" "$version_file"
 fi
 
 echo "docker buildx build --platform linux/arm64 -t \"${repository}:${app}_${new_version}\" -f \"$folder$dockerfile\" --load \"$folder\""

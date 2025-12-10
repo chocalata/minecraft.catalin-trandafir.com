@@ -7,4 +7,4 @@ fi
 
 server_folder=${1}
 
-ls -A "$server_folder" | grep -v "server.jar*" | xargs rm -rf
+ls -A "$server_folder" | grep -v "eula.txt" | xargs rm -rf

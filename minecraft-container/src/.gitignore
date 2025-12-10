@@ -1,3 +1,1 @@
 server/*
-!.gitignore
-!server/server.jar.demo
