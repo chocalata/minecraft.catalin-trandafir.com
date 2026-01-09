@@ -15,8 +15,13 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "${MC_MAX_CPU}"
-          memory: "${MC_MAX_RAM}"
+          cpus: "${MC_MAX_CPU:-1}"
+          memory: "${MC_MAX_RAM:-2G}"
         reservations:
-          cpus: "${MC_MIN_CPU}"
-          memory: "${MC_MIN_RAM}"
+          cpus: "${MC_MIN_CPU:-1}"
+          memory: "${MC_MIN_RAM:-2G}"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"

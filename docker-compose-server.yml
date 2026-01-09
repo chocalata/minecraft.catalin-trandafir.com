@@ -10,11 +10,11 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2"
-          memory: 2048M
+          cpus: "${MC_MAX_CPU:-1}"
+          memory: "${MC_MAX_RAM:-2G}"
         reservations:
-          cpus: "0.5"
-          memory: 512M
+          cpus: "${MC_MIN_CPU:-1}"
+          memory: "${MC_MIN_RAM:-2G}"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mc_catalin-trandafir_com.entrypoints=web, websecure"
